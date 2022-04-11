@@ -1,0 +1,122 @@
+import random
+import string
+import time
+lives_visual_drawing = { #his will be the visual representation of the hangman game
+        0: """
+                ___________
+               | /        | 
+               |/        ( )
+               |         \|/
+               |         / \\
+               |
+           """,
+        1: """
+                ___________
+               | /        | 
+               |/        ( )
+               |          |/
+               |         / \\
+               |
+            """,
+        2: """
+                ___________
+               | /        | 
+               |/        ( )
+               |          |
+               |         / \\
+               |
+            """,
+        3: """
+                ___________
+               | /        | 
+               |/        ( )
+               |          |
+               |         / 
+               |
+            """,
+        4: """
+                 ___________
+               | /        | 
+               |/        ( )
+               |          |
+               |          
+               |
+            """,
+        5: """
+                 ___________
+               | /        | 
+               |/        ( )
+               |          
+               |          
+               |
+            """,
+        6: """
+                ___________
+               | /        | 
+               |/        
+               |          
+               |          
+               |
+            """,
+        7: "",
+    } 
+# The words that will be used for hangman.
+words = ["kwantlen","rai","zimmerman","james","games","gyani","liverpool","tottenham","son","messi","navjot","kobe","helicopter","garcha", "brain","top","weekend","valid","snake","good","food","dude","drill","Nike","radio","you","animosity","saturday"]
+# These words will be removed from the list.
+words.remove("kwantlen")
+words.remove("rai")
+words.remove("zimmerman")
+
+def get_valid_word(words):
+    word = random.choice(words)
+    while '-' in word or ' ' in word:
+        word = random.choice(words)
+    return word.upper()
+# This function chooses a word from the list above, other than "Kwantlen", "rai", and "zimmerman".
+
+def hangman(): # This will be the main function that will run the game.
+    word = get_valid_word(words)
+    word_letters = set(word) #This creates a set word for the round of hangman
+    alphabet = set(string.ascii_uppercase) # This gets the alphabet into the code and it puts it in caps automatiaclly.
+    used_letters = set() 
+    lives = 7 # This variable is for the ammount of lives you have
+    while len(word_letters) > 0 and lives > 0: # This makes it so you play till you have guessed all the words or you have ran out of lives.
+        print('You have', lives, 'lives left and you have used these letters: ', ' '.join(used_letters))
+        word_list = [letter if letter in used_letters else '-' for letter in word]
+        print(lives_visual_drawing[lives]) # This part prints out the visual for hangman
+        print('Current word: ', ' '.join(word_list))
+        user_letter = input('Guess a letter: ').upper()
+        time.sleep(1) # This part creates the delay
+        if user_letter in alphabet - used_letters:
+            used_letters.add(user_letter)
+            if user_letter in word_letters:
+                word_letters.remove(user_letter)
+                print('' + "correct guess") #This part of the code is for if you guess the correct letter.
+            else:
+                lives = lives - 1 
+                print('Your letter,', user_letter, 'is not in the word.')#This is if you guess the wrong letter, which will also take away a life.
+        elif user_letter in used_letters:
+            print('You have already used that letter. Guess another letter.')
+        else:
+            print(' That is not a valid letter.') #This part is if you put in a invalid letter or you guess a letter that you have already guessed before
+    if lives == 0:
+        print('You died, sorry. The word was', word) #This is if you run out of lives and cant guess the word
+    else:
+        print('YAY! You guessed the word', word, '!!') #This is if you guess the word and win the round of hangman
+
+play_again = input("Do you want to play again? (Y) or (N): ").lower() #This part makes it so you can input if you want to play again or not.
+
+if __name__ == '__main__':   
+    while play_again == "y":
+        print("""
+                ___________
+                | /
+                |/
+                |
+                |
+                |
+                """) 
+        hangman() #This makes it so the game can be run over and over again
+        play_again = input("Do you want to play again? (Y) or (N): ").lower()
+        if play_again == "n":
+            print("You have succesfully quit") #this part makes it so you have the option to quit or to continue playing
