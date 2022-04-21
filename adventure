@@ -1,0 +1,67 @@
+#The code runs from bottom to top because I need to the functions to be defined in that order
+#All the .lower() make your answer lowercase so it matches the option  that is needed
+from PIL import Image#This part is for the images
+image1 = Image.open("bleach.webp")
+image2 = Image.open("bigmac.jpg")
+image3 = Image.open("pancakes.jpg")
+def bigmac():#the end of the game and where you win 
+    image2.show()
+    print("You ate the bigmac and you are now not hungry and have survied and won the game!")
+def icecream():
+    print("The icecream machine is broken bozo, it's Mcdonald's what did you expect.")
+def nothing():
+    print("You have starved to death. :(")
+def mcdonalds():
+    choice = input("You now pull up to Mcdonald's and you have the option of eating a BIGMAC or an ICECREAM cone.").lower()
+    if choice == "icecream":
+        icecream()
+    elif choice == "bigmac":
+        bigmac()
+    else:
+        print("invalid option. L + ratio + youngboy better")
+
+def eggs():
+    image1.show()#here is one of the images that will pop up if you go through this route of the game
+    print("James does not like eggs so james secretly pours bleach in your eggs and you die")
+def pancakes():
+    image3.show()
+    choice = input("You have made the pancakes with james as james starts eating the pancakes with passion, but you just realized that James ate your pancakes as well. What do you do? (Get MCDONALDS) or (eat NOTHING)").lower()
+    if choice == "mcdonalds":
+        mcdonalds()
+    elif choice == "nothing":
+        nothing()
+    else:
+        print("invalid option. L + ratio + youngboy better")
+def run():#first dead end of the code
+    print("You have run to the cops and have gotten James in jail for breaking into your house")
+def breakfast():#This takes you to anither option
+    choice = input("Now you and James appear to be in the kitchen cookin up PANCAKES or EGGS. What do you do?").lower()
+    if choice == "pancakes":#If you write pancakes or eggs it will take you to the other defined function for whatever option you choose
+        pancakes()
+    elif choice == "eggs":
+        eggs()
+    else:
+        print("invalid option. L + ratio + youngboy better")
+def first_choice():#this leads you to the first story where you get your first choice of what way to go
+    choice = input("You wake up, you see james sitting right next to you on your bed. What do you do?(RUN and call for help) or (make BREAKFAST with James)").lower()
+    if choice == "breakfast":
+        breakfast()
+    elif choice == "run":
+        run()
+    else:
+        print("invalid option. L + ratio + youngboy better")
+
+
+name = input("What is your name? ")
+
+check = name.isalpha()#This checks if there are any numbers for your name and makes you try again
+if check == True:
+    print(" Welcome to the game " + name + " please enjoy the game and please write down the words that are capitalized to choose which story you would like to continue with.")
+    play_game = input("Would you like to play the game (y) or (n)")
+    if play_game == "y":#This gives you the option to play again or not
+        first_choice()
+    else:
+        print("You have quit the game")
+elif check != True:
+    print("Please spin back")
+    
